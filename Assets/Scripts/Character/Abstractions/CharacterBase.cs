@@ -3,6 +3,8 @@ using UnityEngine;
 public abstract class CharacterBase : MonoBehaviour, IControllable
 {
     [SerializeField] protected float _moveSpeed;
+    [SerializeField] protected float _rotateSpeed;
+
     protected IMovable _moveStrategy;
     protected IAttackable _attackStrategy;
     protected IRotateable _rotateStrategy;
@@ -17,9 +19,9 @@ public abstract class CharacterBase : MonoBehaviour, IControllable
         _moveStrategy.Move(moveDirection, _moveSpeed);
     }
 
-    public void Rotate()
+    public void Rotate(Vector2 rotateDirection)
     {
-        _rotateStrategy.Rotate();
+        _rotateStrategy.Rotate(rotateDirection, _rotateSpeed);
     }
 
     public void Attack()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -6,6 +7,9 @@ public class PlayerInput : MonoBehaviour
 
     private IControllable _controllableObject;
     private NewInputSystem _newInputSystem;
+
+    private Vector2 _moveDirection;
+    private Vector2 _rotateDirection;
 
     private void Awake()
     {
@@ -28,6 +32,11 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        _controllableObject.Move(_newInputSystem.Player.Move.ReadValue<Vector2>());
+        _moveDirection = _newInputSystem.Player.Move.ReadValue<Vector2>();
+        _rotateDirection = _newInputSystem.Player.Rotate.ReadValue<Vector2>();
+
+        _controllableObject.Move(_moveDirection);
+        if (_rotateDirection != new Vector2(0,0))
+            _controllableObject.Rotate(_rotateDirection);
     }
 }

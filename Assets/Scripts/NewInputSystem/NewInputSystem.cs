@@ -35,17 +35,37 @@ public partial class @NewInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""03149ed1-067f-4c55-8118-c8c20713aba4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""3b01df6e-62d3-450e-9342-cf55042db2da"",
-                    ""path"": ""<AndroidJoystick>/stick"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6f94164-43d2-4c72-9a24-5c10c594f357"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -57,6 +77,7 @@ public partial class @NewInputSystem : IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+        m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -117,11 +138,13 @@ public partial class @NewInputSystem : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
+    private readonly InputAction m_Player_Rotate;
     public struct PlayerActions
     {
         private @NewInputSystem m_Wrapper;
         public PlayerActions(@NewInputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
+        public InputAction @Rotate => m_Wrapper.m_Player_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -134,6 +157,9 @@ public partial class @NewInputSystem : IInputActionCollection2, IDisposable
                 @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
+                @Rotate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
+                @Rotate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
+                @Rotate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -141,6 +167,9 @@ public partial class @NewInputSystem : IInputActionCollection2, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
             }
         }
     }
@@ -148,5 +177,6 @@ public partial class @NewInputSystem : IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
     }
 }

@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface IRotateable
 {
-    public void Rotate();
+    public void Rotate(Vector2 rotateDirection, float rotateSpeed);
 }
