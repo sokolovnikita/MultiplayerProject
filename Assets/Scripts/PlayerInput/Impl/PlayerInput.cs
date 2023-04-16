@@ -32,11 +32,16 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        _moveDirection = _newInputSystem.Player.Move.ReadValue<Vector2>();
-        _rotateDirection = _newInputSystem.Player.Rotate.ReadValue<Vector2>();
+        ReadInput();
 
         _controllableObject.Move(_moveDirection);
         if (_rotateDirection != new Vector2(0,0))
             _controllableObject.Rotate(_rotateDirection);
+    }
+
+    private void ReadInput()
+    {
+        _moveDirection = _newInputSystem.Player.Move.ReadValue<Vector2>();
+        _rotateDirection = _newInputSystem.Player.Rotate.ReadValue<Vector2>();
     }
 }
