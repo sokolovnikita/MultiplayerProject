@@ -9,6 +9,6 @@ public class GeneralFlyStrategy : FlyStrategyBase
 
     public override void Fly(float flySpeed)
     {
-        _projectileTransform.Translate(_projectileTransform.up * flySpeed * Time.deltaTime);
+        _projectileTransform.Translate(Vector2.up * flySpeed * Time.deltaTime);
     }
 }

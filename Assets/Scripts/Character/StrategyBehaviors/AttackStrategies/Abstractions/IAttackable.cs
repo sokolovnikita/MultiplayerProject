@@ -1,4 +1,9 @@
+using System.Collections;
+
 public interface IAttackable
 {
-    public void Attack();
+    public void StartAttack(ProjectileFactoryBase projectileFactoryPrefab,
+        ProjectileFactoryBase.ProjectileType projectileType, float attackReload);
+
+    public void StopAttack();
 }

@@ -6,5 +6,7 @@ public interface IControllable
 
     public void Rotate(Vector2 rotateDirection);
 
-    public void Attack();
+    public void StartAttack();
+
+    public void StopAttack();
 }
