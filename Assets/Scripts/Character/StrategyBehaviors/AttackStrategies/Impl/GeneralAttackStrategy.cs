@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GeneralAttackStrategy : AttackStrategyBase
 {
-    private Coroutine attackCoroutine;
+    private Coroutine _attackCoroutine;
 
     public GeneralAttackStrategy(CharacterBase character, Transform firePointTransform) 
         : base(character, firePointTransform)
@@ -14,12 +14,12 @@ public class GeneralAttackStrategy : AttackStrategyBase
     public override void StartAttack(ProjectileFactoryBase projectileFactoryPrefab, 
         ProjectileFactoryBase.ProjectileType projectileType, float attackReload)
     {
-        attackCoroutine = _character.StartCoroutine(Attacking(projectileFactoryPrefab, projectileType, attackReload));
+        _attackCoroutine = _character.StartCoroutine(Attacking(projectileFactoryPrefab, projectileType, attackReload));
     }
 
     public override void StopAttack()
     {
-        _character.StopCoroutine(attackCoroutine);
+        _character.StopCoroutine(_attackCoroutine);
     }
 
     private IEnumerator Attacking(ProjectileFactoryBase projectileFactoryPrefab,
