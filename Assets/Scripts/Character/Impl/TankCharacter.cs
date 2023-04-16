@@ -4,5 +4,6 @@ public class TankCharacter : CharacterBase
     {
         _moveStrategy = new GeneralMoveStrategy(transform);
         _rotateStrategy = new GeneralRotateStrategy(transform);
+        _attackStrategy = new GeneralAttackStrategy(this, _firePoint.transform);
     }
 }

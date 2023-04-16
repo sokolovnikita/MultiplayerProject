@@ -4,6 +4,10 @@ public abstract class CharacterBase : MonoBehaviour, IControllable
 {
     [SerializeField] protected float _moveSpeed;
     [SerializeField] protected float _rotateSpeed;
+    [SerializeField] protected float _attackReload;
+    [SerializeField] protected ProjectileFactoryBase _projectileFactory;
+    [SerializeField] protected ProjectileFactoryBase.ProjectileType _projectileType;
+    [SerializeField] protected GameObject _firePoint;
 
     protected IMovable _moveStrategy;
     protected IAttackable _attackStrategy;
@@ -24,9 +28,14 @@ public abstract class CharacterBase : MonoBehaviour, IControllable
         _rotateStrategy.Rotate(rotateDirection, _rotateSpeed);
     }
 
-    public void Attack()
+    public void StartAttack()
     {
-        _attackStrategy.Attack();
+        _attackStrategy.StartAttack(_projectileFactory, _projectileType, _attackReload);
+    }
+
+    public void StopAttack()
+    {
+
     }
 
     protected abstract void InitStrategies();
