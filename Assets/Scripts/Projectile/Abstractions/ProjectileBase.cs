@@ -29,5 +29,10 @@ public abstract class ProjectileBase : MonoBehaviour
         Hit(damageableObject);
     }
 
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
+
     protected abstract void InitStrategies();
 }

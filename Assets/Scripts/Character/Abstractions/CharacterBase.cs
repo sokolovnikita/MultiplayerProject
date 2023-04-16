@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public abstract class CharacterBase : MonoBehaviour, IControllable
+public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable
 {
     [SerializeField] protected float _moveSpeed;
     [SerializeField] protected float _rotateSpeed;
     [SerializeField] protected float _attackReload;
+    [SerializeField] protected float _hitPoints;
     [SerializeField] protected ProjectileFactoryBase _projectileFactory;
     [SerializeField] protected ProjectileFactoryBase.ProjectileType _projectileType;
     [SerializeField] protected GameObject _firePoint;
@@ -35,8 +36,16 @@ public abstract class CharacterBase : MonoBehaviour, IControllable
 
     public void StopAttack()
     {
-
+        _attackStrategy.StopAttack();
     }
 
-    protected abstract void InitStrategies();
+    public void TakeDamage(int takenDamage)
+    {
+        if (_hitPoints - takenDamage > 0)
+            _hitPoints -= takenDamage;
+        else
+            Destroy(gameObject);
+    }
+
+    protected abstract void InitStrategies(); 
 }
