@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,17 +8,14 @@ public class PlayerInput : MonoBehaviour
 
     private IControllable _controllableObject;
     private NewInputSystem _newInputSystem;
+    private PhotonView _photonView;
 
     private Vector2 _moveDirection;
     private Vector2 _rotateDirection;
 
     private void Awake()
-    {
+    {       
         _newInputSystem = new NewInputSystem();
-        _controllableObject = _controllableGameObject.GetComponent<IControllable>();
-        
-        if (_controllableObject == null)
-            Debug.LogError($"GameObject {_controllableGameObject} does not contain IControllable interface");        
     }
 
     private void Start()
@@ -37,9 +35,18 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        ReadInput();
-        Move();
-        Rotate();         
+        if (_photonView.IsMine)
+        {
+            ReadInput();
+            Move();
+            Rotate();
+        }         
+    }
+    
+    public void SetControllableObject(IControllable controllableObject)
+    {
+        _controllableObject = controllableObject;
+        _photonView = _controllableObject.GetPhotonView();
     }
 
     private void Rotate()

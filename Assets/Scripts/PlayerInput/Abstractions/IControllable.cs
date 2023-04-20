@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public interface IControllable
@@ -9,4 +10,6 @@ public interface IControllable
     public void StartAttack();
 
     public void StopAttack();
+
+    public PhotonView GetPhotonView();
 }
