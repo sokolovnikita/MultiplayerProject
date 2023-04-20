@@ -1,6 +1,7 @@
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Lobby : MonoBehaviourPunCallbacks
 {
@@ -20,7 +21,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         {
             MaxPlayers = 2,
         };
-        PhotonNetwork.CreateRoom(_createRoom.text);
+        PhotonNetwork.CreateRoom(_createRoom.text, roomOptions);
     }
 
     public void JoinToRoom()
@@ -37,7 +38,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         Log($"Joined to the room {_joinToRoom.text}");
         Log($"Your name is {_nickname.text}");
-        PhotonNetwork.LoadLevel("GameScene");
+        SceneManager.LoadScene(1);
     }
 
     private void SetStartSettings()

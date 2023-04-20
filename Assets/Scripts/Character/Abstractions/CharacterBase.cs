@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable, ITakeableCoin
@@ -20,6 +21,13 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
         InitStrategies();
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.W)) 
+        {
+            transform.Translate(Vector2.up * Time.deltaTime * _moveSpeed);
+        }
+    }
     public void Move(Vector2 moveDirection)
     {
         _moveStrategy.Move(moveDirection, _moveSpeed);
@@ -53,5 +61,10 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
         _coins += takenCoins;
     }
 
-    protected abstract void InitStrategies();    
+    protected abstract void InitStrategies();
+
+    public PhotonView GetPhotonView()
+    {
+        return gameObject.GetComponent<PhotonView>();
+    }
 }
