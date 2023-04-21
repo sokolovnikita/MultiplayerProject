@@ -5,6 +5,7 @@ public abstract class AttackStrategyBase : IAttackable
 {
     protected CharacterBase _character;
     protected Transform _firePointTransform;
+    protected bool _isAttacking = false;
 
     public AttackStrategyBase(CharacterBase character, Transform firePointTransform)
     {

@@ -19,12 +19,13 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
     public event Action<int, int> OnTookDamageEvent;
     public event Action<int, int> OnTookCoinEvent;
     public event Action<string> OnChangedNicknameEvent;
+    public event Action OnCharacterDiedEvent;
 
     protected IMovable _moveStrategy;
     protected IAttackable _attackStrategy;
     protected IRotateable _rotateStrategy;
 
-    private string _nickname;
+    [SerializeField] private string _nickname;
 
     private void Awake()
     {
@@ -38,7 +39,7 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
             return _nickname;
         }
         set 
-        { 
+        {      
             _nickname = value;
             OnChangedNicknameEvent(_nickname);
         }
@@ -48,11 +49,11 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(_nickname);
+            stream.SendNext(Nickname);
         }
         else
         {
-            _nickname = (string) stream.ReceiveNext();
+            Nickname = (string) stream.ReceiveNext();
         }
     }
 
@@ -81,7 +82,10 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
         if (_actualHealthPoints - takenDamage > 0)
             _actualHealthPoints -= takenDamage;
         else
-            Destroy(gameObject);
+        {
+            OnCharacterDiedEvent();
+            PhotonNetwork.Destroy(gameObject);
+        }         
         OnTookDamageEvent(_maxHealthPoints, _actualHealthPoints);
     }
 

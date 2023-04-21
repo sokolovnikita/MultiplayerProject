@@ -14,12 +14,18 @@ public class GeneralAttackStrategy : AttackStrategyBase
     public override void StartAttack(ProjectileFactoryBase projectileFactoryPrefab, 
         ProjectileFactoryBase.ProjectileType projectileType, float attackReload)
     {
-        _attackCoroutine = _character.StartCoroutine(Attacking(projectileFactoryPrefab, projectileType, attackReload));
+        if (_isAttacking == false)
+        {
+            _isAttacking = true;
+            _attackCoroutine = _character.StartCoroutine(Attacking(projectileFactoryPrefab, 
+                projectileType, attackReload));
+        }    
     }
 
     public override void StopAttack()
     {
         _character.StopCoroutine(_attackCoroutine);
+        _isAttacking = false;
     }
 
     private IEnumerator Attacking(ProjectileFactoryBase projectileFactoryPrefab,

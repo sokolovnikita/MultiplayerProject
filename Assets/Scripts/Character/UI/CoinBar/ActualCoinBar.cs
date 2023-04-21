@@ -24,7 +24,6 @@ public class ActualCoinBar : MonoBehaviour
 
     private void UpdateCoinBar(int maxCoins, int actualCoins)
     {
-        Debug.Log($"actual - {actualCoins} max - {maxCoins}");
         _coinBarImage.fillAmount = (float)actualCoins / (float)maxCoins;
     }
 }
