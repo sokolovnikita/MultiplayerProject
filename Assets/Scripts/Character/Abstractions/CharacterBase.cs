@@ -10,12 +10,14 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
     [SerializeField] protected float _attackReload;
     [SerializeField] protected int _actualHealthPoints;
     [SerializeField] protected int _maxHealthPoints;
-    [SerializeField] protected int _coins;
+    [SerializeField] protected int _actualCoins;
+    [SerializeField] protected int _maxCoins;
     [SerializeField] protected ProjectileFactoryBase _projectileFactory;
     [SerializeField] protected ProjectileFactoryBase.ProjectileType _projectileType;
     [SerializeField] protected GameObject _firePoint;
 
     public event Action<int, int> OnTookDamageEvent;
+    public event Action<int, int> OnTookCoinEvent;
     public event Action<string> OnChangedNicknameEvent;
 
     protected IMovable _moveStrategy;
@@ -84,8 +86,9 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
     }
 
     public void TakeCoin(int takenCoins)
-    {
-        _coins += takenCoins;
+    {       
+        _actualCoins += takenCoins;
+        OnTookCoinEvent(_maxCoins, _actualCoins);
     }
 
     public PhotonView GetPhotonView()
