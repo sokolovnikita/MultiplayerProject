@@ -19,7 +19,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         Photon.Realtime.RoomOptions roomOptions = new Photon.Realtime.RoomOptions()
         {
-            MaxPlayers = 2,
+            MaxPlayers = 10,
         };
         PhotonNetwork.CreateRoom(_createRoom.text, roomOptions);
     }
