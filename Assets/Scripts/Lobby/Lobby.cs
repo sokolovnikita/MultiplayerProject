@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Lobby : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TMP_InputField _createRoom;
-    [SerializeField] private TMP_InputField _joinToRoom;
+    [SerializeField] private TMP_InputField _joinRoom;
     [SerializeField] private TMP_InputField _nickname;
     [SerializeField] private TMP_Text _debugLog;
 
@@ -24,9 +24,9 @@ public class Lobby : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(_createRoom.text, roomOptions);
     }
 
-    public void JoinToRoom()
+    public void JoinRoom()
     {
-        PhotonNetwork.JoinRoom(_joinToRoom.text);
+        PhotonNetwork.JoinRoom(_joinRoom.text);
     }
 
     public override void OnConnectedToMaster()
@@ -36,7 +36,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Log($"Joined to the room {_joinToRoom.text}");
+        Log($"Joined to the room {_joinRoom.text}");
         Log($"Your name is {_nickname.text}");
         SceneManager.LoadScene(1);
     }
