@@ -2312,6 +2312,7 @@ MonoBehaviour:
   _joinRoom: {fileID: 1501035765}
   _nickname: {fileID: 515307382}
   _debugLog: {fileID: 41881537}
+  _playerData: {fileID: 11400000, guid: 2340e030aa4f2cd4f87934a5b5d9ea18, type: 2}
 --- !u!4 &1949595775
 Transform:
   m_ObjectHideFlags: 0

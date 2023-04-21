@@ -8,13 +8,17 @@ public class Room : MonoBehaviourPunCallbacks
 {
     [SerializeField] private CharacterBase _characterPrefab;
     [SerializeField] private PlayerInput _playerInput;
+    [SerializeField] private PlayerData _playerData;
+    [SerializeField] private CharacterFactoryBase _characterFactory;
+
+    private float _minPlayerSpawnX = -8;
+    private float _maxPlayerSpawnX = 8;
+    private float _minPlayerSpawnY = 0;
+    private float _maxPlayerSpawnY = 3;
 
     private void Start()
     {
-        Vector2 offset = new Vector2(Random.Range(-8f, 8f), Random.Range(0f, 3f));
-        CharacterBase character = PhotonNetwork.Instantiate(_characterPrefab.name, 
-            offset, Quaternion.identity).GetComponent<CharacterBase>();
-        _playerInput.SetControllableObject(character);
+        SpawnCharacter();
     }
 
     public void LeaveRoom()
@@ -35,5 +39,14 @@ public class Room : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player newPlayer)
     {
         Debug.Log($"Player {newPlayer} left room");
+    }
+
+    private void SpawnCharacter()
+    {
+        Vector2 spawnPoint = new Vector2(Random.Range(_minPlayerSpawnX, _maxPlayerSpawnX),
+            Random.Range(_minPlayerSpawnY, _maxPlayerSpawnY));
+        CharacterBase character = _characterFactory.Spawn(CharacterFactoryBase.CharacterType.General,
+            spawnPoint, _playerData.Nickname);
+        _playerInput.SetControllableObject(character);
     }
 }

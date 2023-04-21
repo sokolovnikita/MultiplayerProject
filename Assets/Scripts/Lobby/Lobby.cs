@@ -9,6 +9,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField _joinRoom;
     [SerializeField] private TMP_InputField _nickname;
     [SerializeField] private TMP_Text _debugLog;
+    [SerializeField] private PlayerData _playerData;
 
     private void Start()
     {
@@ -17,6 +18,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
+        SetPlayerData();
         Photon.Realtime.RoomOptions roomOptions = new Photon.Realtime.RoomOptions()
         {
             MaxPlayers = 10,
@@ -26,6 +28,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
+        SetPlayerData();
         PhotonNetwork.JoinRoom(_joinRoom.text);
     }
 
@@ -47,6 +50,11 @@ public class Lobby : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.GameVersion = "0.1";
         PhotonNetwork.ConnectUsingSettings();
+    }
+
+    private void SetPlayerData()
+    {
+        _playerData.Nickname = _nickname.text;
     }
 
     private void Log(string message)

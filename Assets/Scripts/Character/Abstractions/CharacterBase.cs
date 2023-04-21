@@ -1,7 +1,8 @@
 using Photon.Pun;
+using TMPro;
 using UnityEngine;
 
-public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable, ITakeableCoin
+public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable, ITakeableCoin, IPunObservable
 {
     [SerializeField] protected float _moveSpeed;
     [SerializeField] protected float _rotateSpeed;
@@ -11,6 +12,9 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
     [SerializeField] protected ProjectileFactoryBase _projectileFactory;
     [SerializeField] protected ProjectileFactoryBase.ProjectileType _projectileType;
     [SerializeField] protected GameObject _firePoint;
+
+    [SerializeField] private TMP_Text _nickname;
+    [SerializeField] private float _barUIOffsetY;
 
     protected IMovable _moveStrategy;
     protected IAttackable _attackStrategy;
@@ -23,11 +27,21 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W)) 
+        SetUIBarPosition();
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
         {
-            transform.Translate(Vector2.up * Time.deltaTime * _moveSpeed);
+            stream.SendNext(_nickname.text);
+        }
+        else
+        {
+            _nickname.text = (string) stream.ReceiveNext();
         }
     }
+
     public void Move(Vector2 moveDirection)
     {
         _moveStrategy.Move(moveDirection, _moveSpeed);
@@ -61,10 +75,22 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
         _coins += takenCoins;
     }
 
-    protected abstract void InitStrategies();
+    public void SetNickname(string nickname)
+    {
+        _nickname.text = nickname;
+    }
 
     public PhotonView GetPhotonView()
     {
         return gameObject.GetComponent<PhotonView>();
+    } 
+
+    private void SetUIBarPosition()
+    {
+        _nickname.transform.position = new Vector2(transform.position.x,
+            transform.position.y + _barUIOffsetY);
+        _nickname.transform.rotation = Quaternion.identity;
     }
+
+    protected abstract void InitStrategies();   
 }
