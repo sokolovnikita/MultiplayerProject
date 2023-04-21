@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -7,38 +8,49 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
     [SerializeField] protected float _moveSpeed;
     [SerializeField] protected float _rotateSpeed;
     [SerializeField] protected float _attackReload;
-    [SerializeField] protected int _hitPoints;
+    [SerializeField] protected int _actualHealthPoints;
+    [SerializeField] protected int _maxHealthPoints;
     [SerializeField] protected int _coins;
     [SerializeField] protected ProjectileFactoryBase _projectileFactory;
     [SerializeField] protected ProjectileFactoryBase.ProjectileType _projectileType;
     [SerializeField] protected GameObject _firePoint;
 
-    [SerializeField] private TMP_Text _nickname;
-    [SerializeField] private float _barUIOffsetY;
+    public event Action<int, int> OnTookDamageEvent;
+    public event Action<string> OnChangedNicknameEvent;
 
     protected IMovable _moveStrategy;
     protected IAttackable _attackStrategy;
     protected IRotateable _rotateStrategy;
+
+    private string _nickname;
 
     private void Awake()
     {
         InitStrategies();
     }
 
-    private void Update()
+    public string Nickname
     {
-        SetUIBarPosition();
+        get 
+        {
+            return _nickname;
+        }
+        set 
+        { 
+            _nickname = value;
+            OnChangedNicknameEvent(_nickname);
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(_nickname.text);
+            stream.SendNext(_nickname);
         }
         else
         {
-            _nickname.text = (string) stream.ReceiveNext();
+            _nickname = (string) stream.ReceiveNext();
         }
     }
 
@@ -63,11 +75,12 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
     }
 
     public void TakeDamage(int takenDamage)
-    {
-        if (_hitPoints - takenDamage > 0)
-            _hitPoints -= takenDamage;
+    {       
+        if (_actualHealthPoints - takenDamage > 0)
+            _actualHealthPoints -= takenDamage;
         else
             Destroy(gameObject);
+        OnTookDamageEvent(_maxHealthPoints, _actualHealthPoints);
     }
 
     public void TakeCoin(int takenCoins)
@@ -75,22 +88,10 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
         _coins += takenCoins;
     }
 
-    public void SetNickname(string nickname)
-    {
-        _nickname.text = nickname;
-    }
-
     public PhotonView GetPhotonView()
     {
         return gameObject.GetComponent<PhotonView>();
     } 
-
-    private void SetUIBarPosition()
-    {
-        _nickname.transform.position = new Vector2(transform.position.x,
-            transform.position.y + _barUIOffsetY);
-        _nickname.transform.rotation = Quaternion.identity;
-    }
 
     protected abstract void InitStrategies();   
 }

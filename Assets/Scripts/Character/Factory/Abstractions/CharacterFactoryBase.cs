@@ -8,7 +8,7 @@ public abstract class CharacterFactoryBase : MonoBehaviour
         CharacterBase character = PhotonNetwork.Instantiate
             (GetPrefab(type).name, spawnPoint, Quaternion.identity).GetComponent<CharacterBase>();
         Debug.Log(nickname);
-        character.SetNickname(nickname);
+        character.Nickname = nickname;
         return character;
     }
 
