@@ -1,12 +1,11 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Room : MonoBehaviourPunCallbacks
+public class Room : MonoBehaviourPunCallbacks, IOnEventCallback
 {
-    [SerializeField] private CharacterBase _characterPrefab;
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private PlayerData _playerData;
     [SerializeField] private CharacterFactoryBase _characterFactory;
@@ -19,6 +18,11 @@ public class Room : MonoBehaviourPunCallbacks
     private void Start()
     {
         SpawnCharacter();
+    }
+
+    private void Update()
+    {
+        CheckForEndGame();
     }
 
     public void LeaveRoom()
@@ -34,6 +38,7 @@ public class Room : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log($"Player {newPlayer} entered room");
+        CheckForStartGame();
     }
 
     public override void OnPlayerLeftRoom(Player newPlayer)
@@ -46,7 +51,32 @@ public class Room : MonoBehaviourPunCallbacks
         Vector2 spawnPoint = new Vector2(Random.Range(_minPlayerSpawnX, _maxPlayerSpawnX),
             Random.Range(_minPlayerSpawnY, _maxPlayerSpawnY));
         CharacterBase character = _characterFactory.Spawn(CharacterFactoryBase.CharacterType.General,
-            spawnPoint, _playerData.Nickname);
+            spawnPoint, _playerData.Nickname);    
         _playerInput.SetControllableObject(character);
+        character.OnCharacterDiedEvent += CheckForEndGame;
+        character.OnCharacterDiedEvent += LeaveRoom;
+           
+        CheckForStartGame();
+    }
+
+    private void CheckForStartGame()
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
+        {
+            _playerInput.SetInputEnable();
+        }          
+    }
+
+    private void CheckForEndGame()
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
+        {
+            _playerInput.SetInputDisable();
+        }      
+    }
+
+    public void OnEvent(EventData photonEvent)
+    {
+        
     }
 }

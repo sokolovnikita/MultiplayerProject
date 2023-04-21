@@ -24,7 +24,6 @@ public class ActualHealthBar : MonoBehaviour
 
     private void UpdateHealthBar(int maxHealthPoints, int actualHealthPoints)
     {
-        Debug.Log($"actual - {actualHealthPoints} max - {maxHealthPoints}");
         _healthBarImage.fillAmount = (float)actualHealthPoints / (float)maxHealthPoints;
     }
 }

@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     private IControllable _controllableObject;
     private NewInputSystem _newInputSystem;
     private PhotonView _photonView;
+    private bool _isInputEnable = false;
 
     private Vector2 _moveDirection;
     private Vector2 _rotateDirection;
@@ -16,11 +17,6 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {       
         _newInputSystem = new NewInputSystem();
-    }
-
-    private void Start()
-    {
-        StartAttack();
     }
 
     private void OnEnable()
@@ -35,14 +31,26 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if (_photonView.IsMine)
+        if (_photonView.IsMine && _isInputEnable)
         {
             ReadInput();
             Move();
-            Rotate();
+            Rotate();           
         }         
     }
     
+    public void SetInputEnable()
+    {
+        _isInputEnable = true;
+        StartAttack();
+    }
+
+    public void SetInputDisable()
+    {
+        _isInputEnable = false;
+        StopAttack();
+    }
+
     public void SetControllableObject(IControllable controllableObject)
     {
         _controllableObject = controllableObject;
