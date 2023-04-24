@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3082657153998186001}
   - component: {fileID: 7729648225609333956}
   - component: {fileID: 6991523401475057313}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ActualCoinBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 5055251923111930256}
   - component: {fileID: 6396801845791604596}
   - component: {fileID: 8542219144278910036}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ActualHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2095350265600429492}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2095350266337318260}
   - component: {fileID: 2095350266337318219}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 1734025463}
   - component: {fileID: 851284354082689073}
   - component: {fileID: -4993493161114658180}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TankCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2095350267493650470}
   - component: {fileID: 2095350267493650471}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 5449209135893753508}
   - component: {fileID: 5794283499446793856}
   - component: {fileID: 6583399258409657}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MaxHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +622,7 @@ GameObject:
   - component: {fileID: 7658395744023365951}
   - component: {fileID: 8159325378245099999}
   - component: {fileID: 3742823788966125719}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 6466090795948150346}
   - component: {fileID: 2500369506210311306}
   - component: {fileID: 4052176866471734263}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MaxCoinBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -799,7 +799,7 @@ GameObject:
   - component: {fileID: 188859200812741836}
   - component: {fileID: 8942169116443457369}
   - component: {fileID: 4702474718768642821}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: NicknameBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -946,7 +946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5462004805861120434}
   - component: {fileID: 8500880404717930584}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
