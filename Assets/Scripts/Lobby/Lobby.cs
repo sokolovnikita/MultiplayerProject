@@ -8,13 +8,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField _createRoom;
     [SerializeField] private TMP_InputField _joinRoom;
     [SerializeField] private TMP_InputField _nickname;
-    [SerializeField] private TMP_Text _debugLog;
     [SerializeField] private PlayerData _playerData;
-
-    private void Start()
-    {
-        SetStartSettings();
-    }
 
     public void CreateRoom()
     {
@@ -41,15 +35,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         Log($"Joined to the room {_joinRoom.text}");
         Log($"Your name is {_nickname.text}");
-        SceneManager.LoadScene(1);
-    }
-
-    private void SetStartSettings()
-    {
-        PhotonNetwork.NickName = _nickname.text;
-        PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.GameVersion = "0.1";
-        PhotonNetwork.ConnectUsingSettings();
+        SceneManager.LoadScene(2);
     }
 
     private void SetPlayerData()
@@ -60,7 +46,5 @@ public class Lobby : MonoBehaviourPunCallbacks
     private void Log(string message)
     {
         Debug.Log(message);
-        _debugLog.text += message;
-        _debugLog.text += "\n";
     }
 }
