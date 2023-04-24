@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 568665929}
   - component: {fileID: 55589904020865310}
   - component: {fileID: -7479130635955081454}
-  m_Layer: 0
+  - component: {fileID: 4093132563495965259}
+  m_Layer: 8
   m_Name: GeneralProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +116,18 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 0
+--- !u!114 &4093132563495965259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2796218681947750837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf6311af2fd96a41a7d85b17284be40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2796218682238274621
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2796218682238274622}
   - component: {fileID: 2796218682238274623}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

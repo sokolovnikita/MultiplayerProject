@@ -11,8 +11,7 @@ public class GeneralHitStrategy : HitStrategyBase
     {
         if (damageableObject != null)
         {
-            damageableObject.TakeDamage(damage);
-            _projectile.Destroy();
-        }       
+            damageableObject.TakeDamage(damage);           
+        }
     }
 }

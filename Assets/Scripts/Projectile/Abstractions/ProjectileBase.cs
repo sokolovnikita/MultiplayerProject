@@ -26,7 +26,14 @@ public abstract class ProjectileBase : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         IDamageable damageableObject = collision.gameObject.GetComponent<IDamageable>();
-        Hit(damageableObject);
+        if (damageableObject != null)
+            Hit(damageableObject);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Destroy(gameObject);
     }
 
     public void Destroy()
