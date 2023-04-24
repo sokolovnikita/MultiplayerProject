@@ -3,13 +3,16 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
-public class Room : MonoBehaviourPunCallbacks, IOnEventCallback
+public class Room : MonoBehaviourPunCallbacks
 {
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private PlayerData _playerData;
     [SerializeField] private CharacterFactoryBase _characterFactory;
+    [SerializeField] private TMP_Text _winText;
 
+    private CharacterBase _character;
     private float _minPlayerSpawnX = -8;
     private float _maxPlayerSpawnX = 8;
     private float _minPlayerSpawnY = 0;
@@ -50,11 +53,11 @@ public class Room : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         Vector2 spawnPoint = new Vector2(Random.Range(_minPlayerSpawnX, _maxPlayerSpawnX),
             Random.Range(_minPlayerSpawnY, _maxPlayerSpawnY));
-        CharacterBase character = _characterFactory.Spawn(CharacterFactoryBase.CharacterType.General,
+        _character = _characterFactory.Spawn(CharacterFactoryBase.CharacterType.General,
             spawnPoint, _playerData.Nickname);    
-        _playerInput.SetControllableObject(character);
-        character.OnCharacterDiedEvent += CheckForEndGame;
-        character.OnCharacterDiedEvent += LeaveRoom;
+        _playerInput.SetControllableObject(_character);
+        _character.OnCharacterDiedEvent += CheckForEndGame;
+        _character.OnCharacterDiedEvent += LeaveRoom;
            
         CheckForStartGame();
     }
@@ -72,11 +75,7 @@ public class Room : MonoBehaviourPunCallbacks, IOnEventCallback
         if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
         {
             _playerInput.SetInputDisable();
+            _winText.text = $"Победил игрок {_character.Nickname} с {_character.Coins} монетами";
         }      
-    }
-
-    public void OnEvent(EventData photonEvent)
-    {
-        
     }
 }
