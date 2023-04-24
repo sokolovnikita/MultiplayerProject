@@ -32,6 +32,18 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
         InitStrategies();
     }
 
+    public int Coins
+    {
+        get
+        {
+            return _actualCoins;
+        }
+        private set
+        {
+            _actualCoins = value;
+        }
+    }
+
     public string Nickname
     {
         get 
