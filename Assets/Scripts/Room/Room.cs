@@ -17,8 +17,8 @@ public class Room : MonoBehaviourPunCallbacks
     private float _maxPlayerSpawnX = 8;
     private float _minPlayerSpawnY = 0;
     private float _maxPlayerSpawnY = 3;
-    private int _playersCountToStart = 1;
-    private int _playersCountToEnd = 0;
+    private int _playersCountToStart = 2;
+    private int _playersCountToEnd = 1;
 
     private void Start()
     {
