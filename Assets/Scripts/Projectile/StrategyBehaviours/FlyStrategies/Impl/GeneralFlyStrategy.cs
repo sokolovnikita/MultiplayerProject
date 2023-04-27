@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class GeneralFlyStrategy : FlyStrategyBase
 {
-    public GeneralFlyStrategy(Transform projectileTransform) : base(projectileTransform)
+    public GeneralFlyStrategy(Rigidbody2D projectileRigidbody) : base(projectileRigidbody)
     {
 
     }
 
     public override void Fly(float flySpeed)
     {
-        _projectileTransform.Translate(Vector2.up * flySpeed * Time.deltaTime);
+        _projectileRigidbody.velocity = _projectileRigidbody.transform.up * flySpeed;
     }
 }

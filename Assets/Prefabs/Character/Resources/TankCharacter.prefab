@@ -362,6 +362,7 @@ MonoBehaviour:
   _projectileFactory: {fileID: 6682169976649715818, guid: 600c1c94f285e114db2600cd6911f201, type: 3}
   _projectileType: 0
   _firePoint: {fileID: 2095350265600429493}
+  _rigidbody: {fileID: 0}
   _nickname: 
 --- !u!50 &1734025460
 Rigidbody2D:

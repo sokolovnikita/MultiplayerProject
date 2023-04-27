@@ -15,6 +15,7 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
     [SerializeField] protected ProjectileFactoryBase _projectileFactory;
     [SerializeField] protected ProjectileFactoryBase.ProjectileType _projectileType;
     [SerializeField] protected GameObject _firePoint;
+    [SerializeField] protected Rigidbody2D _rigidbody;
 
     public event Action<int, int> OnTookDamageEvent;
     public event Action<int, int> OnTookCoinEvent;
@@ -29,6 +30,7 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
 
     private void Awake()
     {
+        _rigidbody = GetComponent<Rigidbody2D>();
         InitStrategies();
     }
 
@@ -62,10 +64,14 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
         if (stream.IsWriting)
         {
             stream.SendNext(Nickname);
+            stream.SendNext(_actualHealthPoints);
+            stream.SendNext(_actualCoins);
         }
         else
         {
             Nickname = (string) stream.ReceiveNext();
+            _actualHealthPoints = (int)stream.ReceiveNext();
+            _actualCoins = (int) stream.ReceiveNext();
         }
     }
 
@@ -76,7 +82,10 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
 
     public void Rotate(Vector2 rotateDirection)
     {
-        _rotateStrategy.Rotate(rotateDirection, _rotateSpeed);
+        if (rotateDirection == new Vector2(0, 0))
+            _rigidbody.angularVelocity = 0;
+        else
+            _rotateStrategy.Rotate(rotateDirection, _rotateSpeed);
     }
 
     public void StartAttack()

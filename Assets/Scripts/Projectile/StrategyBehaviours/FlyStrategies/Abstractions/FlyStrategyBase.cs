@@ -2,11 +2,11 @@ using UnityEngine;
 
 public abstract class FlyStrategyBase : IFlyable
 {
-    protected Transform _projectileTransform;
+    protected Rigidbody2D _projectileRigidbody;
 
-    public FlyStrategyBase(Transform projectileTransform)
+    public FlyStrategyBase(Rigidbody2D projectileRigidbody)
     {
-        _projectileTransform = projectileTransform;
+        _projectileRigidbody = projectileRigidbody;
     }
 
     public abstract void Fly(float flySpeed);

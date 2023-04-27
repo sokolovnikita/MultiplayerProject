@@ -1,11 +1,11 @@
 using UnityEngine;
 public abstract class MoveStrategyBase : IMovable
 {
-    protected Transform _characterTransform;
+    protected Rigidbody2D _characterRigidbody;
 
-    public MoveStrategyBase(Transform characterTransform)
+    public MoveStrategyBase(Rigidbody2D characterRigidbody)
     {
-        _characterTransform = characterTransform;
+        _characterRigidbody = characterRigidbody;
     }
 
     public abstract void Move(Vector2 moveDirection, float moveSpeed);

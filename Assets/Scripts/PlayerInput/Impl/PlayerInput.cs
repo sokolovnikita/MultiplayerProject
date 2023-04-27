@@ -34,11 +34,18 @@ public class PlayerInput : MonoBehaviour
         if (_photonView.IsMine && _isInputEnable)
         {
             ReadInput();
-            Move();
             Rotate();           
         }         
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (_photonView.IsMine && _isInputEnable)
+        {
+            Move();
+        }
+    }
+
     public void SetInputEnable()
     {
         _isInputEnable = true;
@@ -59,8 +66,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Rotate()
     {
-        if (_rotateDirection != new Vector2(0, 0))
-            _controllableObject.Rotate(_rotateDirection);
+        _controllableObject.Rotate(_rotateDirection);
     }
 
     private void Move() 
