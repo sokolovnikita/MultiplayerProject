@@ -17,6 +17,8 @@ public class Room : MonoBehaviourPunCallbacks
     private float _maxPlayerSpawnX = 8;
     private float _minPlayerSpawnY = 0;
     private float _maxPlayerSpawnY = 3;
+    private int _playersCountToStart = 1;
+    private int _playersCountToEnd = 0;
 
     private void Start()
     {
@@ -64,7 +66,7 @@ public class Room : MonoBehaviourPunCallbacks
 
     private void CheckForStartGame()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
+        if (PhotonNetwork.CurrentRoom.PlayerCount >= _playersCountToStart)
         {
             _playerInput.SetInputEnable();
         }          
@@ -72,7 +74,7 @@ public class Room : MonoBehaviourPunCallbacks
 
     private void CheckForEndGame()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
+        if (PhotonNetwork.CurrentRoom.PlayerCount <= _playersCountToEnd)
         {
             _playerInput.SetInputDisable();
             _winText.text = $"Победил игрок {_character.Nickname} с {_character.Coins} монетами";
