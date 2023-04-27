@@ -352,9 +352,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b682ab595b93e844af00a3210af298e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
+  _moveSpeed: 4
   _rotateSpeed: 520
-  _attackReload: 0.5
+  _attackReload: 1
   _actualHealthPoints: 10
   _maxHealthPoints: 10
   _actualCoins: 0
