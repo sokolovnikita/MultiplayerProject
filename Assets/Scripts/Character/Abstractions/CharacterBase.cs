@@ -64,14 +64,10 @@ public abstract class CharacterBase : MonoBehaviour, IControllable, IDamageable,
         if (stream.IsWriting)
         {
             stream.SendNext(Nickname);
-            stream.SendNext(_actualHealthPoints);
-            stream.SendNext(_actualCoins);
         }
         else
         {
             Nickname = (string) stream.ReceiveNext();
-            _actualHealthPoints = (int)stream.ReceiveNext();
-            _actualCoins = (int) stream.ReceiveNext();
         }
     }
 
